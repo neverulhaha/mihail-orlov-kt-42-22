@@ -1,5 +1,7 @@
+using Microsoft.EntityFrameworkCore;
 using NLog;
 using NLog.Web;
+using WebApplication1.DB;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,6 +16,9 @@ try
 
     builder.Services.AddEndpointsApiExplorer();
     builder.Services.AddSwaggerGen();
+
+    builder.Services.AddDbContext<TeacherDBContext>(options =>
+        options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
     var app = builder.Build();
 
