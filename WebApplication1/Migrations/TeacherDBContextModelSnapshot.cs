@@ -55,13 +55,16 @@ namespace WebApplication1.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("HeadId")
                         .IsUnique()
                         .HasFilter("[HeadId] IS NOT NULL");
+
+                    b.HasIndex("Name")
+                        .IsUnique();
 
                     b.ToTable("Departments");
                 });
@@ -114,12 +117,23 @@ namespace WebApplication1.Migrations
                     b.Property<int?>("DepartmentId")
                         .HasColumnType("int");
 
-                    b.Property<string>("FullName")
+                    b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
+
+                    b.Property<string>("Patronymic")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
 
                     b.Property<int?>("PositionId")
                         .HasColumnType("int");
+
+                    b.Property<string>("Surname")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
 
                     b.HasKey("Id");
 
@@ -153,7 +167,8 @@ namespace WebApplication1.Migrations
 
                     b.HasIndex("SubjectId");
 
-                    b.HasIndex("TeacherId");
+                    b.HasIndex("TeacherId", "SubjectId")
+                        .IsUnique();
 
                     b.ToTable("Workloads");
                 });
@@ -173,7 +188,7 @@ namespace WebApplication1.Migrations
                     b.HasOne("WebApplication1.Models.AcademicDegree", "Degree")
                         .WithMany("Teachers")
                         .HasForeignKey("DegreeId")
-                        .OnDelete(DeleteBehavior.NoAction);
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("WebApplication1.Models.Department", "Department")
                         .WithMany("Teachers")
@@ -183,7 +198,7 @@ namespace WebApplication1.Migrations
                     b.HasOne("WebApplication1.Models.Position", "Position")
                         .WithMany("Teachers")
                         .HasForeignKey("PositionId")
-                        .OnDelete(DeleteBehavior.NoAction);
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.Navigation("Degree");
 

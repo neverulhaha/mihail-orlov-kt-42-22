@@ -13,6 +13,8 @@ namespace WebApplication1.DB.Configurations
                    .WithOne()
                    .HasForeignKey<Department>(d => d.HeadId)
                    .OnDelete(DeleteBehavior.SetNull);
+            builder.HasIndex(d => d.Name).IsUnique();
+
         }
     }
 

@@ -56,7 +56,7 @@ namespace WebApplication1.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     FoundationDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     HeadId = table.Column<int>(type: "int", nullable: true)
                 },
@@ -71,7 +71,9 @@ namespace WebApplication1.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    FullName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Surname = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
+                    Patronymic = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
                     DepartmentId = table.Column<int>(type: "int", nullable: true),
                     DegreeId = table.Column<int>(type: "int", nullable: true),
                     PositionId = table.Column<int>(type: "int", nullable: true)
@@ -83,7 +85,8 @@ namespace WebApplication1.Migrations
                         name: "FK_Teachers_AcademicDegrees_DegreeId",
                         column: x => x.DegreeId,
                         principalTable: "AcademicDegrees",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Teachers_Departments_DepartmentId",
                         column: x => x.DepartmentId,
@@ -94,7 +97,8 @@ namespace WebApplication1.Migrations
                         name: "FK_Teachers_Positions_PositionId",
                         column: x => x.PositionId,
                         principalTable: "Positions",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -132,6 +136,12 @@ namespace WebApplication1.Migrations
                 filter: "[HeadId] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Departments_Name",
+                table: "Departments",
+                column: "Name",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Teachers_DegreeId",
                 table: "Teachers",
                 column: "DegreeId");
@@ -152,9 +162,10 @@ namespace WebApplication1.Migrations
                 column: "SubjectId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Workloads_TeacherId",
+                name: "IX_Workloads_TeacherId_SubjectId",
                 table: "Workloads",
-                column: "TeacherId");
+                columns: new[] { "TeacherId", "SubjectId" },
+                unique: true);
 
             migrationBuilder.AddForeignKey(
                 name: "FK_Departments_Teachers_HeadId",

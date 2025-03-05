@@ -18,6 +18,7 @@ namespace WebApplication1.DB.Configurations
                    .WithMany(s => s.Workloads)
                    .HasForeignKey(w => w.SubjectId)
                    .OnDelete(DeleteBehavior.Cascade);
+            builder.HasIndex(w => new { w.TeacherId, w.SubjectId }).IsUnique();
         }
     }
 
