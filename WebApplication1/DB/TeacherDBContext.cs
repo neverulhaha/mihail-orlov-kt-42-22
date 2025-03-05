@@ -4,14 +4,14 @@ using WebApplication1.DB.Configurations;
 using WebApplication1.Models;
 namespace WebApplication1.DB
 {
-    public class TeacherDBContext:DbContext
+    public class TeacherDBContext : DbContext
     {
-        DbSet<AcademicDegree> AcademicDegrees { get; set; }
-        DbSet<Department> Departments { get; set; }
-        DbSet<Position> Positions { get; set; }
-        DbSet<Subject> Subjects { get; set; }
-        DbSet<Teacher> Teachers { get; set; }
-        DbSet<Workload> Workloads { get; set; }
+        public DbSet<AcademicDegree> AcademicDegrees { get; set; }
+        public DbSet<Department> Departments { get; set; }
+        public DbSet<Position> Positions { get; set; }
+        public DbSet<Subject> Subjects { get; set; }
+        public DbSet<Teacher> Teachers { get; set; }
+        public DbSet<Workload> Workloads { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -25,7 +25,7 @@ namespace WebApplication1.DB
 
         public TeacherDBContext(DbContextOptions<TeacherDBContext> options) : base(options)
         {
-
         }
     }
+
 }

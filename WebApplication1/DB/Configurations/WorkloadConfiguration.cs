@@ -18,11 +18,6 @@ namespace WebApplication1.DB.Configurations
                    .WithMany(s => s.Workloads)
                    .HasForeignKey(w => w.SubjectId)
                    .OnDelete(DeleteBehavior.Cascade);
-
-            builder.HasOne(w => w.Department)
-                   .WithMany(d => d.Workloads)
-                   .HasForeignKey(w => w.DepartmentId)
-                   .OnDelete(DeleteBehavior.NoAction);
         }
     }
 

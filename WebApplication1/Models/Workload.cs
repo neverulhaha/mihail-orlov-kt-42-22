@@ -7,8 +7,6 @@
         public Teacher Teacher { get; set; } = null!;
         public int SubjectId { get; set; }
         public Subject Subject { get; set; } = null!;
-        public int DepartmentId { get; set; }
-        public Department Department { get; set; } = null!;
         public int Hours { get; set; }
     }
 }

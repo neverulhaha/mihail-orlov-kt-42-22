@@ -11,6 +11,5 @@ namespace WebApplication1.Models
         public int? HeadId { get; set; }
         public Teacher? Head { get; set; }
         public ICollection<Teacher> Teachers { get; set; } = new List<Teacher>();
-        public ICollection<Workload> Workloads { get; set; } = new List<Workload>();
     }
 }

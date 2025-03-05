@@ -105,17 +105,11 @@ namespace WebApplication1.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     TeacherId = table.Column<int>(type: "int", nullable: false),
                     SubjectId = table.Column<int>(type: "int", nullable: false),
-                    DepartmentId = table.Column<int>(type: "int", nullable: false),
                     Hours = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Workloads", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Workloads_Departments_DepartmentId",
-                        column: x => x.DepartmentId,
-                        principalTable: "Departments",
-                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Workloads_Subjects_SubjectId",
                         column: x => x.SubjectId,
@@ -151,11 +145,6 @@ namespace WebApplication1.Migrations
                 name: "IX_Teachers_PositionId",
                 table: "Teachers",
                 column: "PositionId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Workloads_DepartmentId",
-                table: "Workloads",
-                column: "DepartmentId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Workloads_SubjectId",

@@ -12,7 +12,7 @@ using WebApplication1.DB;
 namespace WebApplication1.Migrations
 {
     [DbContext(typeof(TeacherDBContext))]
-    [Migration("20250303092539_CreateDatabase")]
+    [Migration("20250303114029_CreateDatabase")]
     partial class CreateDatabase
     {
         /// <inheritdoc />
@@ -143,9 +143,6 @@ namespace WebApplication1.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("DepartmentId")
-                        .HasColumnType("int");
-
                     b.Property<int>("Hours")
                         .HasColumnType("int");
 
@@ -156,8 +153,6 @@ namespace WebApplication1.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("DepartmentId");
 
                     b.HasIndex("SubjectId");
 
@@ -202,12 +197,6 @@ namespace WebApplication1.Migrations
 
             modelBuilder.Entity("WebApplication1.Models.Workload", b =>
                 {
-                    b.HasOne("WebApplication1.Models.Department", "Department")
-                        .WithMany("Workloads")
-                        .HasForeignKey("DepartmentId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
                     b.HasOne("WebApplication1.Models.Subject", "Subject")
                         .WithMany("Workloads")
                         .HasForeignKey("SubjectId")
@@ -219,8 +208,6 @@ namespace WebApplication1.Migrations
                         .HasForeignKey("TeacherId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Department");
 
                     b.Navigation("Subject");
 
@@ -235,8 +222,6 @@ namespace WebApplication1.Migrations
             modelBuilder.Entity("WebApplication1.Models.Department", b =>
                 {
                     b.Navigation("Teachers");
-
-                    b.Navigation("Workloads");
                 });
 
             modelBuilder.Entity("WebApplication1.Models.Position", b =>
